@@ -21,6 +21,7 @@ class CreateProductsTable extends Migration
             $table->integer('product_quantity');
             $table->integer('product_alert_quantity');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

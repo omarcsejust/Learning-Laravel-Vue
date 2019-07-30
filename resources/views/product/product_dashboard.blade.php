@@ -3,8 +3,9 @@
 @section('content')
     <div class="container">
         <div class="row">
-            {{-- List of All Product Grid --}}
+            {{-- List of All Active and Deleted Products --}}
             <div class="col-8">
+                {{-- Grid for all active products --}}
                 <div class="card">
                     <div class="card-header bg-success">
                         All Product List
@@ -34,6 +35,50 @@
                                         <div class="btn-group" role="group">
                                             <a href="{{ url('product/delete')  }}/{{ $product->id  }}" class="btn btn-danger">Delete</a>
                                             <a href="{{ url('product/update/form')  }}/{{ $product->id  }}" class="btn btn-info">Edit</a>
+                                        </div>
+                                    </td>
+                                </tr>
+                            @empty
+                                <tr class="text-danger text-center">
+                                    <td colspan="5">Data Not Available!</td>
+                                </tr>
+                            @endforelse
+                            </tbody>
+                        </table>
+                        {{ $products->links()  }}
+                    </div>
+                </div>
+
+                {{-- Grid for all deleted products --}}
+                <div class="card mt-5">
+                    <div class="card-header bg-danger">
+                        All Deleted Product List
+                    </div>
+                    <div class="card-body">
+                        @if(session('restore_status'))
+                            <div class="alert alert-danger">{{session('restore_status')}}</div>
+                        @endif
+                        <table class="table table-bordered">
+                            <thead>
+                            <tr>
+                                <th scope="col">Product Name</th>
+                                <th scope="col">Product Desc</th>
+                                <th scope="col">Product Price</th>
+                                <th scope="col">Product Quantity</th>
+                                <th scope="col">Action</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            @forelse($deleted_products as $product)
+                                <tr>
+                                    <td>{{ $product->product_name  }}</td>
+                                    <td>{{ $product->product_description  }}</td>
+                                    <td>{{ $product->product_price  }}</td>
+                                    <td>{{ $product->product_quantity  }}</td>
+                                    <td>
+                                        <div class="btn-group" role="group">
+                                            <a href="{{ url('product/restore')  }}/{{ $product->id  }}" class="btn btn-success">Restore</a>
+                                            <a href="{{ url('product/forceDelete')  }}/{{ $product->id  }}" class="btn btn-danger">Permanent Delete</a>
                                         </div>
                                     </td>
                                 </tr>
