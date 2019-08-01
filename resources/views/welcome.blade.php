@@ -83,17 +83,18 @@
     <!-- Features section end -->
 
 
-    <!-- letest product section -->
+    <!-- latest product section -->
     <section class="top-letest-product-section">
         <div class="container">
             <div class="section-title">
                 <h2>LATEST PRODUCTS</h2>
             </div>
+            {{--everything inside public folder, we will access through blade asset method--}}
             <div class="product-slider owl-carousel">
                 @foreach($products as $product)
                     <div class="product-item">
                         <div class="pi-pic">
-                            <a href="{{url('product/details')}}/{{$product->id}}"><img src="{{asset('frontend_assets/img/product/4.jpg')}}" alt=""></a>
+                            <a href="{{url('product/details')}}/{{$product->id}}"><img src="{{asset('uploads/product_images')}}/{{$product->product_image}}" alt=""></a>
                             <div class="pi-links">
                                 <a href="#" class="add-card"><i class="flaticon-bag"></i><span>ADD TO CART</span></a>
                                 <a href="#" class="wishlist-btn"><i class="flaticon-heart"></i></a>

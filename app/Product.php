@@ -10,8 +10,15 @@ class Product extends Model
 {
     use SoftDeletes;
 
-    //which fields you can update
-    protected $fillable = ['product_name','product_description','product_price','product_quantity','product_alert_quantity'];
+    //which fields you allow to update, add to the fillable array
+    protected $fillable = [
+        'product_name',
+        'product_description',
+        'product_price',
+        'product_quantity',
+        'product_alert_quantity',
+        'product_image',
+    ];
 
     public static function validateModel(Request $request){
         $request->validate(

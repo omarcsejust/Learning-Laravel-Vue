@@ -20,6 +20,7 @@ class CreateProductsTable extends Migration
             $table->double('product_price');
             $table->integer('product_quantity');
             $table->integer('product_alert_quantity');
+            $table->string('product_image')->default('default_product_image.jpg');
             $table->timestamps();
             $table->softDeletes();
         });

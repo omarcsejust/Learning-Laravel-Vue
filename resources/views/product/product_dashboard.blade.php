@@ -116,7 +116,7 @@
                             </div>
                         @endif
 
-                        <form action="{{url('product/add')}}" method="post">
+                        <form action="{{url('product/add')}}" method="post" enctype="multipart/form-data">
                             @csrf
                             <div class="form-group">
                                 <label for="exampleInputEmail1">Product Name</label>
@@ -141,6 +141,11 @@
                             <div class="form-group">
                                 <label for="exampleInputEmail1">Alert Quantity</label>
                                 <input type="text" class="form-control" placeholder="Alert Quantity" name="product_alert_quantity" value="{{old('product_alert_quantity')}}">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Product Image</label>
+                                <input type="file" class="form-control" name="product_image">
                             </div>
 
                             <button type="submit" name="submit" class="btn btn-info">Submit</button>

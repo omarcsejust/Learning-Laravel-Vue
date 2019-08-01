@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Product;
+use Image;
 
 class ProductController extends Controller
 {
@@ -23,6 +24,7 @@ class ProductController extends Controller
     }
 
     /**
+     * upload image with intervention image library
      * add product and return to the same blade
      * @param Request $request
      * @return \Illuminate\Http\RedirectResponse
@@ -41,7 +43,17 @@ class ProductController extends Controller
             'product_alert_quantity' => $request->product_alert_quantity,
         ];
 
-        Product::insert($product);
+        //Product::insert($product); // insert the product to product table
+        $last_inserted_product_id = Product::insertGetId($product); //return the inserted product id
+
+        if ($request->hasFile('product_image')){ //if file submitted through this form with name product_image
+            $image_to_upload = $request->product_image;
+            $file_name = $last_inserted_product_id.'.'.$image_to_upload->getClientOriginalExtension();
+            Image::make($image_to_upload)->resize(400,450)->save(base_path('public/uploads/product_images/'.$file_name));
+            Product::findOrFail($last_inserted_product_id)->update([
+                'product_image'=>$file_name
+            ]);
+        }
         return back()->with('status', 'Product Added Successfully');
 
     }
