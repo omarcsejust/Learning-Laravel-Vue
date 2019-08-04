@@ -89,7 +89,7 @@
             <div class="section-title">
                 <h2>LATEST PRODUCTS</h2>
             </div>
-            {{--everything inside public folder, we will access through blade asset method--}}
+            {{--everything inside public folder, we will access through asset method--}}
             <div class="product-slider owl-carousel">
                 @foreach($products as $product)
                     <div class="product-item">

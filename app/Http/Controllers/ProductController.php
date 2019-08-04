@@ -74,6 +74,28 @@ class ProductController extends Controller
      * @return \Illuminate\Http\RedirectResponse
      */
     public function updateProduct(Request $request){
+
+        if ($request->hasFile('product_image')){
+            $current_img_file = Product::findOrFail($request->id)->product_image;
+
+            $image_to_update = $request->product_image;
+            $file_name = $request->id.'.'.$image_to_update->getClientOriginalExtension();
+
+            if ($current_img_file == 'default_product_image.jpg'){
+                //don't delete image, just upload new image to the upload product image directory
+                Image::make($image_to_update)->resize(400,450)->save(base_path('public/uploads/product_images/'.$file_name));
+            }else{
+                //delete existing file and move new file to the upload product mage directory
+                unlink(base_path('public/uploads/product_images/'.$current_img_file));
+                Image::make($image_to_update)->resize(400,450)->save(base_path('public/uploads/product_images/'.$file_name));
+            }
+
+            //update the product image
+            Product::findOrFail($request->id)->update([
+                'product_image' => $file_name
+            ]);
+        }
+
         $product = [
             'product_name' => $request->product_name,
             'product_description' => $request->product_description,

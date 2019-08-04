@@ -21,6 +21,7 @@
                                 <th scope="col">Product Desc</th>
                                 <th scope="col">Product Price</th>
                                 <th scope="col">Product Quantity</th>
+                                <th scope="col">Product Image</th>
                                 <th scope="col">Action</th>
                             </tr>
                             </thead>
@@ -31,6 +32,7 @@
                                     <td>{{ $product->product_description  }}</td>
                                     <td>{{ $product->product_price  }}</td>
                                     <td>{{ $product->product_quantity  }}</td>
+                                    <td><img src="{{asset('uploads/product_images')}}/{{ $product->product_image  }}" alt="not found" width="50" height="50"/></td>
                                     <td>
                                         <div class="btn-group" role="group">
                                             <a href="{{ url('product/delete')  }}/{{ $product->id  }}" class="btn btn-danger">Delete</a>
@@ -40,7 +42,7 @@
                                 </tr>
                             @empty
                                 <tr class="text-danger text-center">
-                                    <td colspan="5">Data Not Available!</td>
+                                    <td colspan="6">Data Not Available!</td>
                                 </tr>
                             @endforelse
                             </tbody>
@@ -65,6 +67,7 @@
                                 <th scope="col">Product Desc</th>
                                 <th scope="col">Product Price</th>
                                 <th scope="col">Product Quantity</th>
+                                <th scope="col">Product Image</th>
                                 <th scope="col">Action</th>
                             </tr>
                             </thead>
@@ -75,6 +78,7 @@
                                     <td>{{ $product->product_description  }}</td>
                                     <td>{{ $product->product_price  }}</td>
                                     <td>{{ $product->product_quantity  }}</td>
+                                    <td><img src="{{asset('uploads/product_images')}}/{{ $product->product_image  }}" alt="not found" width="50" height="50"/></td>
                                     <td>
                                         <div class="btn-group" role="group">
                                             <a href="{{ url('product/restore')  }}/{{ $product->id  }}" class="btn btn-success">Restore</a>
@@ -84,7 +88,7 @@
                                 </tr>
                             @empty
                                 <tr class="text-danger text-center">
-                                    <td colspan="5">Data Not Available!</td>
+                                    <td colspan="6">Data Not Available!</td>
                                 </tr>
                             @endforelse
                             </tbody>

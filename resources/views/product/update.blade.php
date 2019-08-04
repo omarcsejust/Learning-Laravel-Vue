@@ -26,7 +26,7 @@
                             </div>
                         @endif
 
-                        <form action="{{url('product/update')}}" method="post">
+                        <form action="{{url('product/update')}}" method="post" enctype="multipart/form-data">
                             @csrf
                             <div class="form-group">
                                 <input type="hidden" name="id" value="{{ $product->id  }}">
@@ -52,6 +52,15 @@
                             <div class="form-group">
                                 <label for="exampleInputEmail1">Alert Quantity</label>
                                 <input type="text" class="form-control" placeholder="Alert Quantity" name="product_alert_quantity" value="{{ $product->product_alert_quantity  }}">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Product Image</label>
+                                <input type="file" class="form-control" name="product_image">
+                            </div>
+
+                            <div class="form-group">
+                                <img src="{{asset('uploads/product_images')}}/{{$product->product_image}}" alt="not fount" width="60" height="60"/>
                             </div>
 
                             <button type="submit" name="submit" class="btn btn-info">Update</button>
