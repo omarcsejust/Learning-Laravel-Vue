@@ -11,10 +11,11 @@
 |
 */
 
-// backend routes
+// ::::::::::::::::: Backend routes :::::::::::::::::::::::::
 Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
+// Product routes
 Route::post('product/add','ProductController@addProduct');
 Route::get('product/dashboard','ProductController@dashboard');
 Route::get('product/delete/{id}','ProductController@deleteProduct');
@@ -23,8 +24,13 @@ Route::post('product/update','ProductController@updateProduct');
 Route::get('product/restore/{id}','ProductController@restoreProduct');
 Route::get('product/forceDelete/{id}','ProductController@forceDeleteProduct');
 
+// Category routes
+Route::get('category/view','CategoryController@viewCategoryDashboard');
+Route::post('category/add','CategoryController@addCategory');
+Route::get('category/vue/view','CategoryController@viewCategoryDashboardByVueComponent');
 
-// Frontend routing
+
+// ::::::::::::::::::::::::Frontend routing ::::::::::::::::::::::::
 Route::get('/', 'FrontendController@index');
 Route::get('product/details/{id}', 'FrontendController@productDetails');
 

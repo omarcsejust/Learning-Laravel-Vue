@@ -106,12 +106,14 @@
                     </div>
                     <div class="card-body">
 
+                        {{-- show status --}}
                         @if(session('status'))
                             <div class="alert alert-success">
                                 {{ session('status') }}
                             </div>
                         @endif
 
+                        {{-- show all errors here --}}
                         @if($errors->all())
                             <div class="alert alert-danger">
                                 @foreach($errors->all() as $error)
@@ -122,6 +124,18 @@
 
                         <form action="{{url('product/add')}}" method="post" enctype="multipart/form-data">
                             @csrf
+
+                            {{-- category names in drop down --}}
+                            <div class="form-group">
+                                <label>Category</label>
+                                <select class="form-control" name="category_id">
+                                    <option>-Select One-</option>
+                                    @foreach($categories as $category)
+                                        <option value="{{$category->id}}">{{$category->category_name}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+
                             <div class="form-group">
                                 <label for="exampleInputEmail1">Product Name</label>
                                 <input type="text" class="form-control" placeholder="Add Product" name="product_name" value="{{old('product_name')}}">

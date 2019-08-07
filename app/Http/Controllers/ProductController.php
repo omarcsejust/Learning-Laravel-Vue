@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Category;
 use Illuminate\Http\Request;
 use App\Product;
 use Image;
@@ -20,7 +21,10 @@ class ProductController extends Controller
         $deleted_products = Product::onlyTrashed()
             ->get();
 
-        return view('product/product_dashboard',compact('products','deleted_products'));
+        //get all categories
+        $categories = Category::all();
+
+        return view('product/product_dashboard',compact('products','deleted_products', 'categories'));
     }
 
     /**
@@ -37,6 +41,7 @@ class ProductController extends Controller
 
         $product = [
             'product_name' => $request->product_name,
+            'category_id' => $request->category_id,
             'product_description' => $request->product_description,
             'product_price' => $request->product_price,
             'product_quantity' => $request->product_quantity,
@@ -141,6 +146,10 @@ class ProductController extends Controller
      * @return \Illuminate\Http\RedirectResponse
      */
     public function forceDeleteProduct($id){
+        $current_img_file = Product::findOrFail($id)->product_image;
+        if ($current_img_file !== 'default_product_image.jpg'){
+            unlink(base_path('public/uploads/product_images/'.$current_img_file));
+        }
         Product::withTrashed()
             ->where('id',$id)
             ->forceDelete();

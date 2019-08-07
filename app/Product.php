@@ -28,6 +28,7 @@ class Product extends Model
                 'product_price' => 'required|numeric',
                 'product_quantity' => 'required|integer',
                 'product_alert_quantity' => 'required|integer',
+                'category_id' => 'required|integer',
             ]
         );
     }
