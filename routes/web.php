@@ -29,6 +29,9 @@ Route::get('category/view','CategoryController@viewCategoryDashboard');
 Route::post('category/add','CategoryController@addCategory');
 Route::get('category/vue/view','CategoryController@viewCategoryDashboardByVueComponent');
 
+//Customer controller routes
+Route::get('customer/admin','Customer');
+
 
 // ::::::::::::::::::::::::Frontend routing ::::::::::::::::::::::::
 Route::get('/', 'FrontendController@index');
