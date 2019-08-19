@@ -19,7 +19,7 @@ class CustomerController extends Controller
     {
         //return Customer::all();
         //return CustomerResource::collection(Customer::latest()->paginate(10));
-        return new CustomerCollection(Customer::latest()->paginate(10));
+        return new CustomerCollection(Customer::orderBy('id','DESC')->paginate(10));
 
     }
 
@@ -66,5 +66,16 @@ class CustomerController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    /**
+     * search customer by a specific field and the value of that field
+     *
+     * @param $field
+     * @param $query
+     * @return CustomerCollection
+     */
+    public function SearchCustomer($field,$query){
+        return new CustomerCollection(Customer::where($field,'LIKE',"%$query%")->latest()->paginate(10));
     }
 }

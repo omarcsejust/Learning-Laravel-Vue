@@ -5,13 +5,12 @@
  */
 
 require('./bootstrap');
+import Vue from 'vue'
 
 /**
  * vue progress bar
-*/
-import Vue from 'vue'
+ */
 import VueProgressBar from 'vue-progressbar'
-
 const VueProgressBarOptions = {
     color: '#50d38a',
     failedColor: '#874b4b',
@@ -25,8 +24,19 @@ const VueProgressBarOptions = {
     location: 'top',
     inverse: false
 }
-
 Vue.use(VueProgressBar, VueProgressBarOptions)
+
+/**
+ * vue Snotify
+ * https://artemsky.github.io/vue-snotify/documentation/installation.html
+ */
+import Snotify, { SnotifyPosition } from 'vue-snotify'
+const SnotifyOption = {
+    toast: {
+        position: SnotifyPosition.rightTop
+    }
+}
+Vue.use(Snotify, SnotifyOption)
 
 
 window.Vue = require('vue');
@@ -44,7 +54,17 @@ window.Vue = require('vue');
 
 Vue.component('example-component', require('./components/ExampleComponent.vue').default);
 Vue.component('category-component', require('./components/CategoryComponent.vue').default);
+
 Vue.component('customer-data-component', require('./components/customer/CustomerDataComponent.vue').default);
+Vue.component('add-customer-component', require('./components/customer/AddCustomerComponent.vue').default);
+
+//Vue.component('pagination-component', require('./components/partial/PaginationComponent.vue').default);
+
+/**
+ * vue pagination component
+ * https://github.com/gilbitron/laravel-vue-pagination
+ */
+Vue.component('pagination', require('laravel-vue-pagination'));
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
