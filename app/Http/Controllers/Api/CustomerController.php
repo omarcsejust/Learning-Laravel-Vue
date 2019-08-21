@@ -31,7 +31,25 @@ class CustomerController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        Customer::validateCustomer($request);
+
+        $customer = [
+            'name' => $request->name,
+            'email' => $request->email,
+            'phone' => $request->phone,
+            'total' => $request->total,
+            'address' => $request->address,
+        ];
+        Customer::insert($customer);
+
+        //or you can use
+        /*$customer_obj = new Customer();
+        $customer_obj->name = $request->name;
+        $customer_obj->email = $request->email;
+        $customer_obj->phone = $request->phone;
+        $customer_obj->address = $request->address;
+        $customer_obj->save();*/
+
     }
 
     /**
@@ -76,6 +94,10 @@ class CustomerController extends Controller
      * @return CustomerCollection
      */
     public function SearchCustomer($field,$query){
-        return new CustomerCollection(Customer::where($field,'LIKE',"%$query%")->latest()->paginate(10));
+        return new CustomerCollection(
+            Customer::where($field,'LIKE',"%$query%")
+                ->latest()
+                ->paginate(10)
+        );
     }
 }

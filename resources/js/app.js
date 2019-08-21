@@ -38,6 +38,13 @@ const SnotifyOption = {
 }
 Vue.use(Snotify, SnotifyOption)
 
+/**
+ * vform
+ * register component globally at the below
+ * https://github.com/cretueusebiu/vform
+ */
+import { Form, HasError, AlertError } from 'vform'
+window.Form = Form
 
 window.Vue = require('vue');
 
@@ -61,10 +68,16 @@ Vue.component('add-customer-component', require('./components/customer/AddCustom
 //Vue.component('pagination-component', require('./components/partial/PaginationComponent.vue').default);
 
 /**
- * vue pagination component
+ * vue pagination component register
  * https://github.com/gilbitron/laravel-vue-pagination
  */
 Vue.component('pagination', require('laravel-vue-pagination'));
+
+/**
+ * vue vform registering globally here
+ */
+Vue.component(HasError.name, HasError)
+Vue.component(AlertError.name, AlertError)
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

@@ -30,7 +30,7 @@ Route::post('category/add','CategoryController@addCategory');
 Route::get('category/vue/view','CategoryController@viewCategoryDashboardByVueComponent');
 
 //Customer controller routes
-Route::get('customer/admin','Customer');
+Route::get('customer/admin','CustomerController');
 
 
 // ::::::::::::::::::::::::Frontend routing ::::::::::::::::::::::::

@@ -178,7 +178,7 @@
                     })
             },
 
-            // Our method to GET results from a Laravel endpoint for pagination
+            // Our method to GET results from a Laravel endpoint for pagination (vue pagination)
             getResults(page = 1) {
                 axios.get('/api/customers?page=' + page)
                     .then(response => {
@@ -190,7 +190,7 @@
                 this.getCustomers()
                 this.query = ''
                 this.queryField = 'name'
-                this.$snotify.success('Data Refereshed','Success')
+                this.$snotify.success('Data Refreshed Successfully','Success')
             }
         }
     }
