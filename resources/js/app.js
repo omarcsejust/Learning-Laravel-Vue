@@ -39,7 +39,7 @@ const SnotifyOption = {
 Vue.use(Snotify, SnotifyOption)
 
 /**
- * vform
+ * vue-vform
  * register component globally at the below
  * https://github.com/cretueusebiu/vform
  */
@@ -74,7 +74,7 @@ Vue.component('add-customer-component', require('./components/customer/AddCustom
 Vue.component('pagination', require('laravel-vue-pagination'));
 
 /**
- * vue vform registering globally here
+ * vue-vform registering globally here
  */
 Vue.component(HasError.name, HasError)
 Vue.component(AlertError.name, AlertError)

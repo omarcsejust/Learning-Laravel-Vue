@@ -5,13 +5,16 @@
 
                 <!-- Button trigger modal -->
                 <div style="position: absolute; right:1rem;">
-                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addCustomerModal">
+                    <button type="button" class="btn btn-primary" @click="createCustomer" data-toggle="modal" data-target="#addCustomerModal">
                         Add New Customer
                     </button>
                 </div>
 
-                <!-- open pop up form for adding new customer by bootstrap modal -->
-                <add-customer-component></add-customer-component>
+                <!-- open bootstrap modal pop up form for add, update customer -->
+                <add-customer-component
+                        :formUpdateMode="formUpdateMode"
+                        :singleCustomer="customer"
+                ></add-customer-component>
 
                 <!--card start-->
                 <div class="card mt-5">
@@ -71,7 +74,7 @@
                                         <button type="button" class="btn btn-info btn-sm">
                                             <i class="fas fa-eye"></i>
                                         </button>
-                                        <button type="button" class="btn btn-primary btn-sm">
+                                        <button type="button" class="btn btn-primary btn-sm" @click="updateCustomer(customer)" data-toggle="modal" data-target="#addCustomerModal">
                                             <i class="fas fa-edit"></i>
                                         </button>
                                         <button type="button" class="btn btn-danger btn-sm">
@@ -81,6 +84,7 @@
                                     </td>
                                 </tr>
 
+                                <!-- if getCustomers() method catch any error then show here  -->
                                 <tr v-if="is_error_customer" class="text-danger text-center">
                                     <td colspan="6">{{customer_data_error_msg}}!</td>
                                 </tr>
@@ -115,7 +119,9 @@
         components: {VueProgress},
         data(){
             return{
+                formUpdateMode: false,
                 customers:{},
+                customer: [],
                 is_error_customer: false,
                 customer_data_error_msg: '',
                 pagination:{
@@ -187,10 +193,19 @@
             },
 
             reload(){
-                this.getCustomers()
                 this.query = ''
                 this.queryField = 'name'
+                this.getCustomers()
                 this.$snotify.success('Data Refreshed Successfully','Success')
+            },
+
+            createCustomer(){
+                this.formUpdateMode = false
+            },
+
+            updateCustomer(singleCustomer){
+                this.formUpdateMode = true
+                this.customer = singleCustomer
             }
         }
     }
