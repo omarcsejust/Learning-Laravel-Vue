@@ -72,7 +72,14 @@ class CustomerController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        Customer::validateCustomer($request);
+
+        $customer = Customer::findOrFail($id);
+
+        $customer->name = $request->name;
+        $customer->email = $request->email;
+        $customer->phone = $request->phone;
+        $customer->address = $request->address;
     }
 
     /**

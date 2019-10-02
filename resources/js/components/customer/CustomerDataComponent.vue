@@ -63,7 +63,7 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr v-for="(customer,index) in customers.data">
+                                <tr v-for="(customer,index) in customers.data"> <!-- as we set customers as object for vue pagination that's why we are getting array by customers.data -->
                                     <th scope="row">{{index+1}}</th>
                                     <td>{{customer.name}}</td>
                                     <td>{{customer.email}}</td>
@@ -94,7 +94,7 @@
                         <!-- end show customers data grid -->
                     </div>
 
-                    <!-- set laravel vue pagination component here -->
+                    <!-- set laravel vue pagination component inside bootstrap card footer -->
                     <div class="card-footer">
                         <pagination
                                 :data="customers" @pagination-change-page="getResults" :limit="5"
@@ -107,6 +107,7 @@
             </div>
         </div>
 
+        <!-- vue-progress bar and vue-snotify component add inside at the bottom of parent div of template -->
         <vue-progress></vue-progress>
         <vue-snotify></vue-snotify>
 
@@ -143,7 +144,7 @@
             }
         },
         mounted() {
-            //console.log('Component mounted.')
+            //console.log('Component mounted.') [mounted triggered automatically while this component(CustomerData) is being called from any blade ]
             this.getCustomers();
         },
         methods:{
@@ -153,7 +154,7 @@
 
                 axios.get('/api/customers?page='+this.pagination.last_page)
                     .then(response => {
-                        this.customers = response.data
+                        this.customers = response.data //response.data is a object, because we need object for vue pagination
                         //console.log(response)
                         //  [App.vue specific] When App.vue is finish loading finish the progress bar
                         this.$Progress.finish()
@@ -199,6 +200,10 @@
                 this.$snotify.success('Data Refreshed Successfully','Success')
             },
 
+            /**
+             * this method is invoked when bootstrap form modal is triggered
+             * to set formUpdateMode false and pass formUpdateMode value as props(property) to the customer form component
+             */
             createCustomer(){
                 this.formUpdateMode = false
             },

@@ -48,7 +48,7 @@
                                 <has-error :form="form" field="address"></has-error>
                             </div>
 
-                            <button :disabled="form.busy" type="submit" class="btn btn-primary">Add Customer</button>
+                            <button :disabled="form.busy" type="submit" class="btn btn-primary">{{formUpdateMode ? "Update" : "Add"}}</button>
                         </div>
 
                         <!--modal footer -->
@@ -80,8 +80,17 @@
         },
         
         watch:{
-            singleCustomer: function (newVal, oldVal) {
+            /*singleCustomer: function (newVal, oldVal) {
                 if (newVal){
+                    this.loadCustomerDataToForm()
+                }
+            },*/
+
+            formUpdateMode: function (newVal, oldVal) {
+                if (newVal==false){
+                    this.form.reset()
+                    this.form.clear()
+                }else {
                     this.loadCustomerDataToForm()
                 }
             }

@@ -2000,8 +2000,16 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   watch: {
-    singleCustomer: function singleCustomer(newVal, oldVal) {
-      if (newVal) {
+    /*singleCustomer: function (newVal, oldVal) {
+        if (newVal){
+            this.loadCustomerDataToForm()
+        }
+    },*/
+    formUpdateMode: function formUpdateMode(newVal, oldVal) {
+      if (newVal == false) {
+        this.form.reset();
+        this.form.clear();
+      } else {
         this.loadCustomerDataToForm();
       }
     }
@@ -2175,6 +2183,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
@@ -2205,7 +2214,7 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   mounted: function mounted() {
-    //console.log('Component mounted.')
+    //console.log('Component mounted.') [mounted triggered automatically while this component(CustomerData) is being called from any blade ]
     this.getCustomers();
   },
   methods: {
@@ -2215,7 +2224,8 @@ __webpack_require__.r(__webpack_exports__);
       //  [App.vue specific] When App.vue is first loaded start the progress bar
       this.$Progress.start();
       axios.get('/api/customers?page=' + this.pagination.last_page).then(function (response) {
-        _this.customers = response.data; //console.log(response)
+        _this.customers = response.data; //response.data is a object, because we need object for vue pagination
+        //console.log(response)
         //  [App.vue specific] When App.vue is finish loading finish the progress bar
 
         _this.$Progress.finish();
@@ -2260,6 +2270,11 @@ __webpack_require__.r(__webpack_exports__);
       this.getCustomers();
       this.$snotify.success('Data Refreshed Successfully', 'Success');
     },
+
+    /**
+     * this method is invoked when bootstrap form modal is triggered
+     * to set formUpdateMode false and pass formUpdateMode value as props(property) to the customer form component
+     */
     createCustomer: function createCustomer() {
       this.formUpdateMode = false;
     },
@@ -41099,7 +41114,7 @@ var render = function() {
                           staticClass: "btn btn-primary",
                           attrs: { disabled: _vm.form.busy, type: "submit" }
                         },
-                        [_vm._v("Add Customer")]
+                        [_vm._v(_vm._s(_vm.formUpdateMode ? "Update" : "Add"))]
                       )
                     ],
                     1

@@ -17,5 +17,5 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::apiResource('customers','CustomerController');
+Route::apiResource('customers','CustomerController'); // this single route works as GET(Get all customers), PUT(Update) and DELETE(delete) request
 Route::get('customers/search/{field}/{query}','CustomerController@SearchCustomer');
